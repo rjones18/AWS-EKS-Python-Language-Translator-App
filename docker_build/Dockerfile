@@ -1,4 +1,4 @@
-FROM cgr.dev/chainguard/python:3.8.5-slim
+FROM cgr.dev/chainguard/python:latest
 
 COPY . /app
 
