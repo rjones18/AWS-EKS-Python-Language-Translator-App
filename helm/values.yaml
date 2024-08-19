@@ -1,4 +1,4 @@
-replicaCount: 2
+replicaCount: 3
 
 image:
-  repository: rjones21/pkmn-pokedex:latest
+  repository: ghcr.io/rjones18/aws-eks-python-language-translator-app:main

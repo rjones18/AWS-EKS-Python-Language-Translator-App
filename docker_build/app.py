@@ -5,7 +5,6 @@ app = Flask(__name__)
 
 translate_client = boto3.client('translate', region_name='us-east-1')
 polly_client = boto3.client('polly', region_name='us-east-1')
-voice_id = ""
 
 @app.route('/', methods=['GET', 'POST'])
 def index():

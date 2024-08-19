@@ -14,9 +14,9 @@ module "eks" {
     vpc-cni                = {}
   }
 
-  vpc_id                   = "vpc-08355a98e0ae87afc"
-  subnet_ids               = ["subnet-08390a684562bec68", "subnet-08202f209dd627cb4"]
-  control_plane_subnet_ids = ["subnet-043c56c2a4b5d8889", "subnet-0a468bf0d7eb8c784"]
+  vpc_id                   =  data.aws_vpc.main_vpc.id
+  subnet_ids               = [data.aws_subnet.private-a.id, data.aws_subnet.private-b.id]
+  control_plane_subnet_ids = [data.aws_subnet.private-a.id, data.aws_subnet.private-b.id]
 
   # EKS Managed Node Group(s)
   eks_managed_node_group_defaults = {
@@ -39,23 +39,23 @@ module "eks" {
   # To add the current caller identity as an administrator
   enable_cluster_creator_admin_permissions = true
 
-  access_entries = {
-    # One access entry with a policy associated
-    example = {
-      kubernetes_groups = []
-      principal_arn     = "arn:aws:iam::123456789012:role/something"
+  # access_entries = {
+  #   # One access entry with a policy associated
+  #   example = {
+  #     kubernetes_groups = []
+  #     principal_arn     = "arn:aws:iam::123456789012:role/something"
 
-      policy_associations = {
-        example = {
-          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSViewPolicy"
-          access_scope = {
-            namespaces = ["default"]
-            type       = "namespace"
-          }
-        }
-      }
-    }
-  }
+  #     policy_associations = {
+  #       example = {
+  #         policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSViewPolicy"
+  #         access_scope = {
+  #           namespaces = ["default"]
+  #           type       = "namespace"
+  #         }
+  #       }
+  #     }
+  #   }
+  # }
 
   tags = {
     Environment = "dev"

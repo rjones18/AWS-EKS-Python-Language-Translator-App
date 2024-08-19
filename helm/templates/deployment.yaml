@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pkmn-deployment
+  name: language-translator-app-deployment
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: pkmn
+      app: language-translator-app
   template:
     metadata:
       labels:
-        app: pkmn
+        app: language-translator-app
     spec:
       containers:
-      - name: pkmn
-        image: {{ .Values.image.repository }} # Use the latest pkmn image from Docker Hub
+      - name: language-translator-app
+        image: {{ .Values.image.repository }} # Use the latest language-translator-app image from Docker Hub
         ports:
         - containerPort: 8080 # The port on which the container is listening
