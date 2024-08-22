@@ -12,6 +12,7 @@ spec:
       labels:
         app: language-translator-app
     spec:
+      serviceAccountName: translate-app-sa
       containers:
       - name: language-translator-app
         image: {{ .Values.image.repository }} # Use the latest language-translator-app image from Docker Hub
