@@ -1,9 +1,19 @@
-FROM python:3.9-slim
+FROM cgr.dev/chainguard/python:latest-dev as dev
+
+WORKDIR /app
+
+RUN python -m venv venv
+ENV PATH="/app/venv/bin:$PATH"
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+
+FROM cgr.dev/chainguard/python:latest
 
 WORKDIR /app
 
 COPY . /app
 
-RUN pip install -r /app/requirements.txt
+COPY --from=dev /app/venv /app/venv
+ENV PATH="/app/venv/bin:$PATH"
 
 CMD ["python", "/app/app.py"]
