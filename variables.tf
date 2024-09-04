@@ -17,7 +17,7 @@ variable "vpc_name" {
 variable "ec2_type" {
   description = "Type of my ec2 instance"
   type        = string
-  default     = "t2.small"
+  default     = "t2.medium"
 }
 
 variable "public_a_subnet_name" {

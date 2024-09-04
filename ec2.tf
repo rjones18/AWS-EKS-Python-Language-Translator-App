@@ -35,8 +35,8 @@ resource "aws_iam_role_policy_attachment" "CloudWatchAgentServerPolicy" {
 }
 
 resource "aws_iam_role_policy" "eks_access_policy" {
-  name   = "eks-access-policy"
-  role   = aws_iam_role.instance_role.name
+  name = "eks-access-policy"
+  role = aws_iam_role.instance_role.name
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
@@ -75,7 +75,7 @@ resource "aws_instance" "master_server" {
   subnet_id              = data.aws_subnet.public-a.id
   vpc_security_group_ids = [aws_security_group.my_public_app_sg.id]
   key_name               = var.my_keypair
-  iam_instance_profile = aws_iam_instance_profile.instance_profile.id
+  iam_instance_profile   = aws_iam_instance_profile.instance_profile.id
 
   tags = {
     Name = "eks_box_server"

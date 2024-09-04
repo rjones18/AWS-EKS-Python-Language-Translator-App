@@ -5,7 +5,7 @@ module "eks" {
   cluster_name    = "my-cluster"
   cluster_version = "1.30"
 
-  cluster_endpoint_public_access  = true
+  cluster_endpoint_public_access = true
 
   cluster_addons = {
     coredns                = {}
@@ -14,7 +14,7 @@ module "eks" {
     vpc-cni                = {}
   }
 
-  vpc_id                   =  data.aws_vpc.main_vpc.id
+  vpc_id                   = data.aws_vpc.main_vpc.id
   subnet_ids               = [data.aws_subnet.private-a.id, data.aws_subnet.private-b.id]
   control_plane_subnet_ids = [data.aws_subnet.private-a.id, data.aws_subnet.private-b.id]
 
