@@ -7,15 +7,25 @@ resource "aws_iam_role" "translate_polly_role" {
       {
         Effect = "Allow"
         Principal = {
-          Federated = "arn:aws:iam::614768946157:oidc-provider/AD35929386302C488BAC6DF6F6C25399"
+          Federated = "arn:aws:iam::614768946157:oidc-provider/147690DCCAE56101C33856FD0BC12A17"
         }
         Action = "sts:AssumeRoleWithWebIdentity"
         Condition = {
           StringEquals = {
-            "AD35929386302C488BAC6DF6F6C25399:sub" = "system:serviceaccount:default:translate-app-sa"
+            "147690DCCAE56101C33856FD0BC12A17:sub" = "system:serviceaccount:default:language-translator-app-role"
           }
         }
       }
     ]
   })
+}
+
+resource "aws_iam_role_policy_attachment" "AmazonPolly" {
+  role       = aws_iam_role.translate_polly_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonPollyFullAccess"
+}
+
+resource "aws_iam_role_policy_attachment" "TranslateFullAccess" {
+  role       = aws_iam_role.translate_polly_role.name
+  policy_arn = "arn:aws:iam::aws:policy/TranslateFullAccess"
 }
