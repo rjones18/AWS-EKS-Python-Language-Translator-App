@@ -34,6 +34,16 @@ resource "aws_iam_role_policy_attachment" "CloudWatchAgentServerPolicy" {
   policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
 }
 
+resource "aws_iam_role_policy_attachment" "AmazonEKSClusterPolicy" {
+  role       = aws_iam_role.instance_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+}
+
+resource "aws_iam_role_policy_attachment" "AmazonEKSWorkerNodePolicy" {
+  role       = aws_iam_role.instance_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+}
+
 resource "aws_iam_role_policy" "eks_access_policy" {
   name = "eks-access-policy"
   role = aws_iam_role.instance_role.name
