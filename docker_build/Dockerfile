@@ -11,9 +11,9 @@ FROM cgr.dev/chainguard/python:latest-dev as dev
 
  WORKDIR /app
 
- COPY . /app
+ COPY . .
 
  COPY --from=dev /app/venv /app/venv
  ENV PATH="/app/venv/bin:$PATH"
 
- CMD ["python", "/app/app.py"]
+ CMD ["python", "app.py"]
