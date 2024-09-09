@@ -1,11 +1,19 @@
-FROM python:3.9-slim
+FROM cgr.dev/chainguard/python:latest-dev as dev
 
-WORKDIR /app
+ WORKDIR /app
 
-# Copy the current directory contents into the container at /app
-COPY . .
+ RUN python -m venv venv
+ ENV PATH="/app/venv/bin:$PATH"
+ COPY requirements.txt requirements.txt
+ RUN pip install -r requirements.txt
 
-# Install any dependencies from requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+ FROM cgr.dev/chainguard/python:latest
 
-CMD ["python", "app.py"]
+ WORKDIR /app
+
+ COPY . /app
+
+ COPY --from=dev /app/venv /app/venv
+ ENV PATH="/app/venv/bin:$PATH"
+
+ CMD ["python", "/app/app.py"]
