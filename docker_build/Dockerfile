@@ -1,19 +1,31 @@
+# Stage 1 - development stage
 FROM cgr.dev/chainguard/python:latest-dev as dev
 
- WORKDIR /app
+WORKDIR /app
 
- RUN python -m venv venv
- ENV PATH="/app/venv/bin:$PATH"
- COPY requirements.txt requirements.txt
- RUN pip install -r requirements.txt
+# Create virtual environment
+RUN python -m venv venv
 
- FROM cgr.dev/chainguard/python:latest
+# Activate the virtual environment
+ENV PATH="/app/venv/bin:$PATH"
 
- WORKDIR /app
+# Copy and install dependencies
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
 
- COPY . .
+# Stage 2 - production stage
+FROM cgr.dev/chainguard/python:latest
 
- COPY --from=dev /app/venv /app/venv
- ENV PATH="/app/venv/bin:$PATH"
+WORKDIR /app
 
- CMD ["python", "app.py"]
+# Copy all app files
+COPY . .
+
+# Copy the virtual environment from the dev stage
+COPY --from=dev /app/venv /app/venv
+
+# Ensure the virtual environment is in the PATH
+ENV PATH="/app/venv/bin:$PATH"
+
+# Explicitly state where the app.py is located
+CMD ["python", "/app/app.py"]
