@@ -2,8 +2,10 @@ FROM python:3.9-slim
 
 WORKDIR /app
 
-COPY . /app
+# Copy the current directory contents into the container at /app
+COPY . .
 
-RUN pip install -r /app/requirements.txt
+# Install any dependencies from requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 CMD ["python", "/app/app.py"]
