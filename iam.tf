@@ -7,12 +7,12 @@ resource "aws_iam_role" "translate_polly_role" {
       {
         Effect = "Allow"
         Principal = {
-          Federated = "arn:aws:iam::614768946157:oidc-provider/8BDD3060D654C869ED93363A62C27FD1"
+          Federated = "arn:aws:iam::614768946157:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/8BDD3060D654C869ED93363A62C27FD1"
         }
         Action = "sts:AssumeRoleWithWebIdentity"
         Condition = {
           StringEquals = {
-            "8BDD3060D654C869ED93363A62C27FD1:sub" = "system:serviceaccount:default:language-translator-app-role"
+            "oidc.eks.us-east-1.amazonaws.com/id/8BDD3060D654C869ED93363A62C27FD1:sub" = "system:serviceaccount:default:translate-app-sa"
           }
         }
       }
